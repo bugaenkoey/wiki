@@ -1,3 +1,4 @@
+import random
 import re
 
 from django.core.files.base import ContentFile
@@ -21,7 +22,8 @@ def save_entry(title, content):
     """
     filename = f"entries/{title}.md"
     if default_storage.exists(filename):
-        default_storage.delete(filename)
+        # default_storage.delete(filename)
+        raise Exception("енциклопедична стаття з наданою назвою вже існує")
     default_storage.save(filename, ContentFile(content))
 
 
@@ -35,3 +37,23 @@ def get_entry(title):
         return f.read().decode("utf-8")
     except FileNotFoundError:
         return None
+    
+def random_page():
+       return  random.choice(list_entries())
+
+def search(title):
+    all_searched = []
+    all_title = list_entries()
+    for item in all_title:
+        if title.lower() in item.lower():
+            all_searched.append(item)
+    return all_searched
+
+def save_edit(title, content):
+    print(f"save{title}")
+    filename = f"entries/{title}.md"
+    if default_storage.exists(filename):
+        default_storage.delete(filename)
+        print(f"delete {title} !!!!!!!!!!!")
+        # raise Exception("енциклопедична стаття з наданою назвою вже існує")
+    default_storage.save(filename, ContentFile(content))

@@ -5,15 +5,14 @@ Encyclopedia
 {%endblock %} 
 
 {% block nav %}
-<div><nav>NAV</nav></div>
 {% endblock %}
- 
+
 {% block body %}
 <h1>All Pages</h1>
 
 <ul>
   {% for entry in entries %}
-  <li>{{ entry }}</li>
+  <li><a href ={{entry}}>{{ entry }}</li>
   {% endfor %}
 </ul>
 

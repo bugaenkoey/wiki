@@ -1,0 +1,15 @@
+{% extends "encyclopedia/layout.html" %} {% block title %} Create New Page
+{%endblock %} {% block nav %} {% endblock %} {% block body %}
+<div>
+  {%if exception %}
+  <script>
+    alert("{{exception}}");
+  </script>
+  {% endif %}
+  <h1>Create New Page</h1>
+  <form action="{% url 'add' %}" method="post">
+    {% csrf_token %} {{form.as_div}}
+    <input type="submit" />
+  </form>
+</div>
+{% endblock %}

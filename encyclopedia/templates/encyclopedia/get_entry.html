@@ -1,0 +1,25 @@
+{% extends "encyclopedia/layout.html" %} {% block title %} {{title}}
+{%endblock%} {% block nav %}
+<div>
+  <nav>
+    <h1>All Pages</h1>
+    <ul>
+      {% for entry in entries %}
+      <li><a href="{{entry}}">{{ entry }}</a></li>
+      {% endfor %}
+    </ul>
+  </nav>
+</div>
+{% endblock %} {% block body %}
+<div>{{get_entry|safe}}</div>
+
+{% comment %} +++++ {% endcomment %}
+
+<form action="{% url 'edit_page' %}" method="post">
+  {% csrf_token %} {% comment %} {{form.as_div}} {% endcomment %}
+  <input type="hidden" name="title" value="{{title}}" />
+  <input type="hidden" name="article" value="{{get_entry}}" />
+  <input type="submit" value="Edit Text {{title}} page" />
+</form>
+
+{% comment %} ------- {% endcomment %} {% endblock %}
